@@ -23,24 +23,24 @@ namespace WebApplication1 {
             $info = array();
 
             $db = array(
-                'host'  => 'host',
-                'user'  => 'user',
-                'pass'  => 'pass',
+                'host'  => 'localhost',
+                'user'  => 'ivan',
+                'pass'  => '911',
                 'port'  => '5432',
-                'name'  => 'data',
+                'name'  => 'pg',
             );
 
             $connect = pg_connect("host={$db['host']} port={$db['port']} dbname={$db['name']} user={$db['user']} password={$db['pass']}")
                        or die('Could not connect: ' . pg_last_error());
 
-            var_dump( $connect );
-
             $result = pg_query( $sql ) or die('Error: ' . pg_last_error());
 
-            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+            if( $result ) {
+                while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 
-                array_push( $info, $line );
+                    array_push($info, $line);
 
+                }
             }
 
             pg_free_result($result);
